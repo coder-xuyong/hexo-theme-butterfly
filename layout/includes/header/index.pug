@@ -50,3 +50,4 @@ header#page-header(class=`${headerClassName + isFixedClass}` style=bg_img)
     //- improve seo
     if globalPageType !== 'post'
       h1.title-seo=page.title || page.tag || page.category || config.title
+  !=partial('includes/header/wave_style', {}, {cache: true})
