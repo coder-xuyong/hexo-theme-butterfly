@@ -880,12 +880,15 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!cardCategory) return
 
     const handleToggleBtn = e => {
-      const target = e.target
-      if (target.nodeName === 'I') {
-        e.preventDefault()
-        target.parentNode.classList.toggle('expand')
-      }
+      const link = e.target.closest('.card-category-list-link')
+      if (!link) return
+
+      // 让整行都可展开/收起，并阻止链接默认跳转
+      e.preventDefault()
+      e.stopPropagation()
+      link.classList.toggle('expand')
     }
+
     btf.addEventListenerPjax(cardCategory, 'click', handleToggleBtn, true)
   }
 
