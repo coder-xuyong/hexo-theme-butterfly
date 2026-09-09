@@ -293,6 +293,9 @@ aside:
   card_announcement:
     enable: true
     content: This is my Blog
+  card_schedule:
+    enable: true
+    sort_order: null
   card_recent_post:
     enable: true
     # If set 0 will show all

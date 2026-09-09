@@ -404,10 +404,14 @@
       > div:first-child
         width: 80%
 
-.page
+#aside-content
   .sticky_layout
     display: flex
     flex-direction: column
+
+  if hexo-config('aside.card_schedule.sort_order')
+    #card-schedule
+      order: hexo-config('aside.card_schedule.sort_order')
 
   if hexo-config('aside.card_recent_post.sort_order')
     .card-recent-post

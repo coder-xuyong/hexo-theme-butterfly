@@ -26,11 +26,27 @@
     .sticky_layout
       if showToc
         include ./card_post_toc.pug
-      !=partial('includes/widget/card_recent_post', {}, {cache: true})
-      !=partial('includes/widget/card_ad', {}, {cache: true})
-      !=partial('includes/widget/card_newest_comment', {}, {cache: true})
-      !=partial('includes/widget/card_categories', {}, {cache: true})
-      !=partial('includes/widget/card_tags', {}, {cache: true})
-      !=partial('includes/widget/card_archives', {}, {cache: true})
-      !=partial('includes/widget/card_webinfo', {}, {cache: true})
-      !=partial('includes/widget/card_bottom_self', {}, {cache: true})
+      -
+        const asideCards = [
+          ['card_schedule', theme.aside.card_schedule],
+          ['card_recent_post', theme.aside.card_recent_post],
+          ['card_ad', theme.ad],
+          ['card_newest_comment', theme.aside.card_newest_comments],
+          ['card_categories', theme.aside.card_categories],
+          ['card_tags', theme.aside.card_tags],
+          ['card_archives', theme.aside.card_archives],
+          ['card_webinfo', theme.aside.card_webinfo],
+          ['card_bottom_self', theme.aside.card_bottom_self]
+        ].map((card, index) => ({
+          name: card[0],
+          config: card[1] || {},
+          index,
+          order: card[1] && card[1].sort_order !== null && card[1].sort_order !== undefined && card[1].sort_order !== '' ? Number(card[1].sort_order) : null
+        })).sort((a, b) => {
+          if (a.order === null && b.order === null) return a.index - b.index
+          if (a.order === null) return 1
+          if (b.order === null) return -1
+          return a.order - b.order || a.index - b.index
+        })
+      each card in asideCards
+        !=partial(`includes/widget/${card.name}`, {}, {cache: true})
